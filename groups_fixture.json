@@ -1,15 +1,28 @@
 [
-{
-  "model": "auth.group",
-  "pk": 1,
-  "fields": {
-    "name": "Контент-менеджеры",
-    "permissions": [
-      49,
-      32,
-      50,
-      48
-    ]
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "Контент-менеджер",
+      "permissions": [
+        29,
+        28,
+        54,
+        53
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "Пользователь",
+      "permissions": [
+        41,
+        16,
+        28,
+        37
+      ]
+    }
   }
-}
 ]
