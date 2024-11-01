@@ -37,7 +37,7 @@ class RegisterView(CreateView):
         token = secrets.token_hex(16)
         user.token = token
         # Присваиваем пользователю группу Пользователи
-        user.groups.add(Group.objects.get(name='usersmailings'))
+        user.groups.add(Group.objects.get(name='Пользователь'))
         user.save()
         host = self.request.get_host()
         url = f'http://{host}/users/email-confirm/{token}/'
