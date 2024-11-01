@@ -59,69 +59,53 @@
             <div class="col-12 text-center">
                 <table class="table">
                     <tr>
+
                         <th><h6>Время рассылки</h6></th>
                         <th><h6>Статус рассылки</h6></th>
                         <th><h6>Периодичность рассылки</h6></th>
                         <th><h6>Владелец рассылки</h6></th>
                         <th><h6>Подробности рассылки</h6></th>
-                        {% if perms.distribution.change_status %}
+
                         <th><h6>Редактирование рассылки</h6></th>
-                        {% endif %}
-                        {% if request.user.is_superuser %}
+
+
                         <th><h6>Удаление рассылки</h6></th>
-                        {% endif %}
+
+                        <th><h6>Активность рассылки</h6></th>
+
                     </tr>
                     {% for object in object_list %}
-                    {% if request.user.is_superuser %}
+
                     <tr>
                         <td><h6>{{ object.start_time }}</h6></td>
                         <td><h6>{{ object.status }}</h6></td>
                         <td><h6>{{ object.periodicity }}</h6></td>
                         <th><h6>{{ object.owner }}</h6></th>
+                        {% if object.is_active %}
+                        <th><h6>Активна</h6></th>
+                        {% else %}
+                        <th><h6>Отменена</h6></th>
+                        {% endif %}
                         <td><h6>
                             <a href="{% url 'mailings:distribution_detail' object.pk %}"
                                class="btn btn-lg btn-primary">Полная
                                 информация</a>
                         </h6></td>
                         <td><h6>
+                            {% if user.is_superuser %}
                             <a class="btn btn-lg btn-warning"
                                href="{% url 'mailings:distribution_edit' object.pk %}">Исправить</a>
+                            {% endif %}
                         </h6></td>
                         <td><h6>
-                            <a class="btn btn-lg btn-danger"
-                               href="{% url 'mailings:distribution_delete' object.pk %}">Удалить</a>
+                            {% if object.is_active %}
+                            <a class="btn btn-danger" href="{% url 'mailings:toggle_activity_mailings' object.pk%}">Отменить</a>
+                            {% else %}
+                            <a class="btn btn-success" href="{% url 'mailings:toggle_activity_mailings' object.pk%}">Активировать</a>
+                            {% endif %}
                         </h6></td>
-                        {% elif perms.distribution.view_mailingsettings %}
-                    <tr>
-                        <td><h6>{{ object.start_time }}</h6></td>
-                        <td><h6>{{ object.status }}</h6></td>
-                        <td><h6>{{ object.periodicity }}</h6></td>
-                        <th><h6>{{ object.owner }}</h6></th>
-                        <td>
-                            <h6>
-                                <a href="{% url 'mailings:distribution_detail' object.pk %}"
-                                   class="btn btn-lg btn-primary">Полная
-                                    информация</a>
-                                <td><h6>
-                                    {% if perms.distribution.change_status %}
-                                    <a class="btn btn-lg btn-warning"
-                                       href="{% url 'mailings:distribution_edit' object.pk %}">Исправить</a>
-                                    {% endif %}
-                                </h6></td>
-                            </h6>
-                        </td>
-                        {% elif object.owner == request.user %}
-                    <tr>
-                        <td><h6>{{ object.start_time }}</h6></td>
-                        <td><h6>{{ object.status }}</h6></td>
-                        <td><h6>{{ object.periodicity }}</h6></td>
-                        <th><h6>{{ object.owner }}</h6></th>
-                        <td><h6>
-                            <a href="{% url 'mailings:distribution_detail' object.pk %}"
-                               class="btn btn-lg btn-primary">Полная
-                                информация</a>
-                        </h6></td>
-                        {% endif %}
+
+
                         {% endfor %}
 
                     </tr>

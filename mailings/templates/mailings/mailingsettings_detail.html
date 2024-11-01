@@ -7,7 +7,7 @@
     </div>
 </div>
 
-{% if object.owner == request.user or request.user.is_superuser or perms.distribution.view_mailingsettings %}
+{% if object.owner == request.user or request.user.is_superuser or perms.mailings.view_mailingsettings %}
 <div class="col-12 text-center">
     <table class="table table-striped">
         <tr>
