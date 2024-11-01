@@ -15,8 +15,6 @@ class User(AbstractUser):
 
     token = models.CharField(max_length=100, verbose_name="Токен", **NULLABLE)
 
-    is_active = models.BooleanField(default=True, verbose_name="Активация", help_text="Активируйте пользователя")
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
