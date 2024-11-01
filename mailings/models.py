@@ -20,7 +20,11 @@ class Client(models.Model):
         verbose_name = "клиент"
         verbose_name_plural = "клиенты"
         ordering = ('FIO',)
-
+        permissions = [
+            ("can_view_clients", "Может смотреть просматривать клиентов"),
+            ("can_change_clients", "Может смотреть изменять клиентов"),
+            ("can_delete_clients", "Может удалять Клиентов"),
+        ]
 
 class MailingSettings(models.Model):
     """Модель настроек рассылки"""
@@ -66,7 +70,7 @@ class MailingSettings(models.Model):
         permissions = [
             (
                 'change_status',
-                'Can change status'
+                'Может менять состояние рассылки'
             )
         ]
 
