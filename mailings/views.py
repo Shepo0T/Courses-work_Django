@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.forms import inlineformset_factory
 from django.conf import settings
@@ -223,3 +224,14 @@ class LogListView(LoginRequiredMixin, ListView):
                 status=True).count()
             context_data['error'] = user_logs.filter(status=False).count()
         return context_data
+
+def toggle_activity_mailings(request, pk):
+    mailings = get_object_or_404(MailingSettings, pk=pk)
+    if mailings.is_active:
+        mailings.is_active = False
+    else:
+        mailings.is_active = True
+
+    mailings.save()
+
+    return redirect(reverse('mailings:distribution_list'))

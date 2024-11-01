@@ -2,7 +2,7 @@ from django.urls import path
 
 from mailings.views import MailingSettingsDetailView, MailingSettingsListView, MailingSettingsCreateView, \
     MailingSettingsDeleteView, MailingSettingsUpdateView, ClientListView, ClientCreateView, ClientUpdateView, \
-    LogListView, ClientDetailView, ClientDeleteView
+    LogListView, ClientDetailView, ClientDeleteView, toggle_activity_mailings
 
 urlpatterns = [
     path('log/', LogListView.as_view(), name='log_list'),
@@ -13,8 +13,9 @@ urlpatterns = [
     path('delete/<int:pk>/', MailingSettingsDeleteView.as_view(), name='distribution_delete'),
     path('', MailingSettingsListView.as_view(), name='distribution_list'),
     path('create/', MailingSettingsCreateView.as_view(), name='create_distribution'),
-    path('edit/<int:pk>/', MailingSettingsUpdateView.as_view(template_name='distribution/mailingsettings_update_form.html'),
+    path('edit/<int:pk>/', MailingSettingsUpdateView.as_view(template_name='mailings/mailingsettings_update_form.html'),
          name='distribution_edit'),
     path('clients/<int:pk>', ClientDetailView.as_view(), name='detail_client'),
     path('clients/delete/<int:pk>', ClientDeleteView.as_view(), name='delete_client'),
+    path('activity_mailings/<int:pk>/', toggle_activity_mailings, name='toggle_activity_mailings'),
 ]
